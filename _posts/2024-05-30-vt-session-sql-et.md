@@ -10,7 +10,7 @@ tags:
   ]
 ---
 
-# [Oracle] V\$SESSION, V\$SQL에서 수행시간 관련 컬럼 분석
+# [Oracle] V$SESSION, V$SQL에서 수행시간 관련 컬럼 분석
 
 ## V$SESSION
 
