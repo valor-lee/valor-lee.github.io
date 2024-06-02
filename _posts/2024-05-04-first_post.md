@@ -1,5 +1,5 @@
 ---
-title: Nested loop Join
+title: '[Oracle] Nested loop Join'
 date: 2024-05-04 17:56:00 +09:00
 categories: [database, DBMS]
 tags:
@@ -11,7 +11,7 @@ tags:
   
 ---
 
-# Nested Loop Join
+# [Oracle] Nested Loop Join
 
 ## 목차
 

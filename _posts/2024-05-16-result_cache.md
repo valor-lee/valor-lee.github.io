@@ -1,5 +1,5 @@
 ---
-title: result cache
+title: '[Oracle] result cache'
 date: 2024-05-16 22:10:00 +09:00
 categories: [database, DBMS]
 tags:
@@ -10,11 +10,11 @@ tags:
   ]
 ---
 
-# result cache
+# [Oracle] result cache
 
 ## 목차
   
-- [result cache](#result-cache)
+- [\[Oracle\] result cache](#oracle-result-cache)
   - [목차](#목차)
   - [1. 정의](#1-정의)
   - [2. 특징](#2-특징)

@@ -1,7 +1,7 @@
 ---
 title: '[Oracle] V$SESSION, V$SQL에서 수행시간 관련 컬럼 분석'
 date: 2024-05-30 22:11:00 +09:00
-categories: [database, dbms]
+categories: [database, DBMS]
 tags:
   [
     DBMS,
