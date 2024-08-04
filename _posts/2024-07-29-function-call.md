@@ -40,6 +40,9 @@ tags:
 > ![image](https://github.com/user-attachments/assets/cbbb36b2-50bd-4008-8c64-6ff79be27fec)
 > - 마이크로프로세서 내부에 있는 레지스터 중 하나로, 다음에 실행될 명령어의 주소를 가지고 있어서 실행할 코드의 위치를 지정한다.
 > - 이로 인해 명령어 포인터라고도 한다.
+>
+>> IR 레지스터
+>> - 명령어를 가져오기 위한 레지스터
 
 
 ## 4. 새 스택 프레임 생성 (Create New Stack Frame)
