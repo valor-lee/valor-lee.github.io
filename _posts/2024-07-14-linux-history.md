@@ -1,6 +1,6 @@
 ---
 title: Linux 역사
-date: 2024-07-14 19:2329:00 +09:00
+date: 2024-07-14 10:29:00 +09:00
 categories: [Linux]
 tags:
   [
