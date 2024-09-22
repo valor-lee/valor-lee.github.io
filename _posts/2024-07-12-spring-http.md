@@ -38,9 +38,7 @@ Spring Framework에서 주로 사용하는 HTTP 요청 방식에 대해서 공�
 - 락이나 병목현상에 의한 서비스 느려지는 문제 발생할 수 있음
 
 # WebClient
-```java
 
-```
 - Spring Framework 5 이상에서 제공
 - **Single Thread & Asynchronous & Nonblocking IO HTTP 통신**을 위한 클라이언트
 
@@ -62,16 +60,17 @@ Spring Framework에서 주로 사용하는 HTTP 요청 방식에 대해서 공�
 ![image](https://github.com/user-attachments/assets/5b9cfa19-6266-4a74-8f2d-258c3d7ecd49)
 
 1. WebClient Builder로 원하는 옵션 작성
-  - 연결할 주소와 포트, HTTP Method, Header 등 설정
+   - 연결할 주소와 포트, HTTP Method, Header 등 설정
 
 2. Builder 기반 Publisher 생성
-  - response 받을 값의 형태를 정의
-  - 단일값을 받을 건지(mono), 여러 값을 받을 건지(flux) 설정
-  - body 설정(bodyToMono, bodyToFlux)
+   - response 받을 값의 형태를 정의
+   - 단일값을 받을 건지(mono), 여러 값을 받을 건지(flux) 설정
+   - body 설정(bodyToMono, bodyToFlux)
   
 3. 실제 통신을 시도하여 값을 받는다.
-  - publisher 객체(mono | flux)에 Subscribe 함수를 사용하거나 stream에 collect 함수를 사용해서도 값을 받을 수 있음
-  - publisher 객체에 block 함수를 이용하여 동기식으로 값을 받을 수 있지만 권장되지 않음
+   - publisher 객체(mono | flux)에 Subscribe 함수를 사용하거나 stream에 collect 함수를 사용해서도 값을 받을 수 있음
+   - publisher 객체에 block 함수를 이용하여 동기식으로 값을 받을 수 있지만 권장되지 않음
+
 
 
 
