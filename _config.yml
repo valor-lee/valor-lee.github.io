@@ -6,7 +6,7 @@ theme: jekyll-theme-chirpy
 # The language of the webpage › http://www.lingoes.net/en/translator/langcode.htm
 # If it has the same name as one of the files in folder `_data/locales`, the layout language will also be changed,
 # otherwise, the layout language will use the default value of 'en'.
-lang: ko
+lang: ko-KR
 
 # Change to your timezone › https://kevinnovak.github.io/Time-Zone-Picker
 timezone: Asia/Seoul
@@ -15,12 +15,12 @@ future: true
 # ↓ --------------------------
 
 title: Valor's Tech Blog # the main title
-subtitle: "version 1.0" # 화면 title 하단에 있는 소제목입니다.
+subtitle: "기록하고 실험하는 개발 노트" # 화면 title 하단에 있는 소제목입니다.
 name: "Valor Lee"
 tagline: "앞으로의 '나와 개발자들'을 위해 기록하는 개발 블로그입니다." # it will display as the sub-title
 
 description: >- # used by seo meta and the atom feed
-  A minimal, responsive# and feature-rich Jekyll theme for technical writing.
+  데이터베이스, 시스템, 백엔드, 머신러닝을 공부하며 정리하는 Valor Lee의 기술 블로그입니다.
 
 #minimal_mistakes_skin    : "default"  # 전체적인 블로그의 색감을 정하는 값입니다.
 # "default" "air", "aqua", "contrast", "dark"
@@ -98,10 +98,10 @@ theme_mode: dark # [light | dark]
 # will be added to all media resources (site avatar, posts' images, audio and video files) paths starting with '/'
 #
 # e.g. 'https://cdn.com'
-cdn: "https://chirpy-img.netlify.app"
+cdn:
 
 # the avatar on sidebar, support local or CORS resources
-avatar: "https://github.com/cotes2020/jekyll-theme-chirpy/assets/109330610/5422035a-4632-489f-ba2a-fc32f6bed91b"
+avatar: "/assets/109330610.jpeg"
 
 #"/commons/avatar.jpg"
 

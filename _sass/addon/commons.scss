@@ -159,6 +159,116 @@ footer {
   }
 }
 
+/* --- Custom polish --- */
+
+html[data-mode='light'] {
+  --main-bg: #fbfbf8;
+  --main-border-color: #e8e4dc;
+  --heading-color: #1f2933;
+  --link-color: #0b7285;
+  --link-underline-color: #a9d6df;
+  --sidebar-bg: #f1f4f2;
+  --sidebar-hover-bg: #e4ece8;
+  --topbar-bg: rgb(251, 251, 248, 0.82);
+  --card-bg: #ffffff;
+  --card-hovor-bg: #eef6f4;
+  --card-shadow: rgb(31, 41, 51, 0.06) 0 10px 28px 0,
+    rgb(31, 41, 51, 0.08) 0 0 0 1px;
+  --tag-hover: #dff3ef;
+}
+
+html[data-mode='dark'] {
+  --main-bg: #17191c;
+  --main-border-color: #30343a;
+  --heading-color: #eef2f6;
+  --text-color: #c7ccd2;
+  --text-muted-color: #969da6;
+  --link-color: #6bc7d9;
+  --link-underline-color: #2d6670;
+  --sidebar-bg: #121417;
+  --sidebar-hover-bg: #222830;
+  --topbar-bg: rgb(23, 25, 28, 0.82);
+  --card-bg: #1d2024;
+  --card-hovor-bg: #242c31;
+  --card-shadow: rgb(0, 0, 0, 0.24) 0 14px 34px 0,
+    rgb(107, 199, 217, 0.08) 0 0 0 1px;
+  --tag-hover: #173b42;
+}
+
+#sidebar {
+  box-shadow: 1px 0 0 var(--main-border-color);
+
+  .site-title {
+    letter-spacing: 0;
+  }
+
+  .site-subtitle {
+    line-height: 1.55;
+  }
+}
+
+#topbar-wrapper {
+  -webkit-backdrop-filter: blur(12px);
+  backdrop-filter: blur(12px);
+}
+
+.post-content,
+.preview-img + .card-body,
+#post-list .card-body {
+  word-break: keep-all;
+  overflow-wrap: anywhere;
+}
+
+.post-content {
+  line-height: 1.85;
+
+  h2,
+  h3 {
+    scroll-margin-top: 5rem;
+  }
+}
+
+#post-list {
+  .card-wrapper {
+    border-radius: $base-radius;
+    background-color: var(--card-bg);
+    box-shadow: var(--card-shadow);
+    transition:
+      transform 0.18s ease,
+      box-shadow 0.18s ease,
+      background-color 0.18s ease;
+
+    &:hover {
+      background-color: var(--card-hovor-bg);
+      transform: translateY(-2px);
+    }
+  }
+
+  .card {
+    overflow: hidden;
+
+    .card-body {
+      min-height: 10rem;
+    }
+
+    .card-title {
+      line-height: 1.35;
+    }
+  }
+}
+
+.post-tag {
+  border-color: var(--tag-border);
+  transition:
+    background-color 0.18s ease,
+    color 0.18s ease,
+    border-color 0.18s ease;
+}
+
+div[class^='language-'] {
+  border-radius: $base-radius;
+}
+
 /* fontawesome icons */
 i {
   &.far,

@@ -1,7 +1,7 @@
 ---
 title: '[Shell] 문자 수정 편리한 기능' 
 date: 2024-08-01 18:29:00 +09:00
-categories: [language, shell]
+categories: [Language, shell]
 tags:
   [
     shell
