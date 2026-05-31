@@ -91,3 +91,7 @@ make INSTALL_MOD_PATH=/workspace/modules modules_install
   - 시스템 표준 위치란 `/lib/modules/<커널버전>/` 디렉토리를 생성해서 복사합니다.
 - 일반 유저의 경우 특정 경로에 설치할 수 있습니다. Docker 컨테이너와 같은 격리 환경에서 커널 모듈을 빌드하고 관리하는 경우 유용합니다.
   
+
+
+  
+  

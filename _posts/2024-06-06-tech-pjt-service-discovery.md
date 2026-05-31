@@ -416,4 +416,4 @@ public class DiscoveryService {
 - https://authentication.tistory.com/24
 - https://wellbell.tistory.com/230
 - https://ssipflow.github.io/msa/Spring-Cloud-API-Gateway-04/
-- https://adjh54.tistory.com/207#3)%20Spring%20Cloud%20%EC%A2%85%EB%A5%98%20%3A%20Component-1
+- https://adjh54.tistory.com/207#3%20Spring%20Cloud%20%EC%A2%85%EB%A5%98%20%3A%20Component-1

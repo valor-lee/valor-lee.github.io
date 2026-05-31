@@ -1,5 +1,5 @@
 ---
-title: 쿠버네티스 아키텍처(Kubernetes architecture)
+title: '[k8s] 아키텍처(Kubernetes architecture)'
 date: 2025-03-04 19:32:00 +09:00
 categories: [Kubernetes, basic]
 tags:

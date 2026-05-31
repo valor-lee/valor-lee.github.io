@@ -1,7 +1,7 @@
+---
 title: 'What Every Programmer Should Know About Memory - Chapter6.1 Bypassing the Cache'
 date: 2026-01-02 19:32:00 +09:00
 categories: [System Programming, thesis]
----
 tags:
   [
     System Programming,
