@@ -323,35 +323,6 @@ interface가 의미 있으려면 최소한 아래 중 하나는 있어야 한다
 
 `PreTradeRiskRule`은 여러 rule 구현체를 하나의 실행 계약으로 묶어야 해서 의미가 있었다.
 
-즉, interface를 쓴 이유가 분명했다.
-
-## 현재 구조의 한계
-
-현재 구조에도 아직 개선할 부분이 있다.
-
-첫째, repository interface는 잘 분리했지만 in-memory 구현은 실제 DB transaction을 보장하지 않는다.
-
-예를 들어 post-settlement accounting workflow에서는 position ledger, cash ledger, average cost, realized PnL을 순서대로 posting한다.
-
-현재는 각 repository의 idempotency로 중복 posting은 막고 있지만, 여러 저장소를 가로지르는 atomicity는 아직 없다.
-
-실제 DB로 전환하면 이 흐름은 하나의 transaction으로 묶거나 outbox 기반 재처리를 고민해야 한다.
-
-둘째, `PreTradeRiskCheckService`의 rule list가 아직 코드에 고정되어 있다.
-
-향후 rule enable/disable, priority, 운영자 설정을 붙이려면 rule 등록 방식을 더 유연하게 바꿔야 한다.
-
-예를 들면 다음처럼 Spring이 `PreTradeRiskRule` 구현체 목록을 주입하게 만들 수 있다.
-
-```java
-public PreTradeRiskCheckService(List<PreTradeRiskRule> rules, Clock clock) {
-    this.rules = rules;
-    this.clock = clock;
-}
-```
-
-그 후 rule별 우선순위는 `@Order`나 별도 priority 값으로 관리할 수 있다.
-
 # 정리
 
 이번 프로젝트에서 interface는 단순 문법이 아니라 책임 경계를 만드는 도구였다.
@@ -369,7 +340,5 @@ repository interface는 application service가 저장소 구현을 모르게 해
 5. 반복 구현은 interface가 아니라 abstract class나 helper로 분리한다.
 
 예전에는 interface를 "객체지향에서 다형성을 위해 쓰는 것" 정도로만 생각했다.
-
-지금은 조금 더 구체적으로 이해하고 있다.
 
 프로젝트에서 interface는 "지금 필요한 기능의 계약을 먼저 세우고, 구현 세부사항이 application 로직을 흔들지 않도록 막는 경계"에 가깝다.
