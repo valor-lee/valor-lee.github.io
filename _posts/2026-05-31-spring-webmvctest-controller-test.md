@@ -33,6 +33,228 @@ tags:
 
 이번 글에서는 `OrderReplayConsistencyReportControllerTest`를 기준으로 Controller 테스트의 원리와 문법을 정리한다.
 
+# Controller 테스트 전에 알아야 할 Spring MVC
+
+`@WebMvcTest`와 `MockMvc`를 이해하려면 먼저 Spring MVC가 어떤 역할을 하는지 알아야 한다.
+
+웹 애플리케이션은 결국 클라이언트의 HTTP 요청을 받아서 응답을 돌려주는 프로그램이다. 예를 들어 브라우저나 프론트엔드가 아래처럼 요청을 보낸다고 하자.
+
+```http
+GET /api/audit-replay/order-replay/consistency-report
+```
+
+서버는 이 요청을 받아서 알맞은 Java 메서드를 실행하고, 그 결과를 HTTP 응답으로 변환해야 한다.
+
+Spring MVC는 이 과정을 편하게 만들어주는 Spring의 웹 계층 프레임워크다.
+
+내가 이해한 Spring MVC의 핵심은 다음과 같다.
+
+```text
+HTTP 요청을 Java 메서드 호출로 연결하고,
+Java 객체를 HTTP 응답으로 다시 바꿔주는 구조
+```
+
+우리가 Controller에 `@GetMapping`, `@RequestParam`, `@RequestBody`, `@ResponseBody`, `@RestController` 같은 어노테이션을 붙이면 Spring MVC가 그 사이의 복잡한 연결 작업을 대신해준다.
+
+# Servlet이란?
+
+Spring MVC는 내부적으로 Servlet API 위에서 동작한다.
+
+Servlet은 Java로 웹 요청을 처리하기 위한 표준 규약이다. 쉽게 말하면 "HTTP 요청이 들어왔을 때 실행될 Java 클래스는 이런 방식으로 만들어야 한다"는 약속이다.
+
+하지만 실제 개발자가 매번 Servlet 클래스를 직접 만들고, 요청 URL을 직접 분기하고, parameter를 직접 파싱하고, 응답을 직접 작성하면 코드가 금방 복잡해진다.
+
+그래서 Spring MVC는 Servlet 기반 구조 위에 더 편한 추상화를 제공한다.
+
+대표적인 Servlet Container로는 Apache Tomcat이 있다. Tomcat은 Servlet을 실행해주는 런타임 환경이다.
+
+Spring Boot 웹 애플리케이션을 만들면 기본적으로 내장 Tomcat이 함께 실행된다. 그래서 별도로 Tomcat을 설치하지 않아도 `SpringApplication.run(...)`만으로 웹 서버가 뜨는 것이다.
+
+흐름을 단순화하면 다음과 같다.
+
+```text
+Client
+    -> Tomcat
+    -> Servlet
+    -> Spring MVC
+    -> Controller
+```
+
+# MVC란?
+
+MVC는 Model, View, Controller의 약자다.
+
+웹 애플리케이션을 한 덩어리로 만들지 않고, 역할별로 나누어 관리하기 위한 구조다.
+
+내가 이해한 MVC의 목적은 "화면, 요청 처리, 비즈니스 데이터를 뒤섞지 않기"다.
+
+```text
+Controller
+    요청을 받는다.
+    어떤 일을 해야 하는지 결정한다.
+
+Model
+    처리 결과로 만들어진 데이터다.
+    View나 응답으로 전달된다.
+
+View
+    Model을 사용해 사용자에게 보여줄 결과를 만든다.
+```
+
+전통적인 웹 애플리케이션에서는 Controller가 service를 호출해 Model을 만들고, View template이 그 Model을 HTML로 렌더링했다.
+
+```text
+Controller
+    -> Service
+    -> Model
+    -> View
+    -> HTML response
+```
+
+반면 REST API에서는 View template을 사용하지 않는 경우가 많다. Controller가 반환한 Java 객체를 JSON으로 변환해서 응답한다.
+
+```text
+Controller
+    -> Service
+    -> Java object
+    -> JSON response
+```
+
+이번 글에서 다루는 `@RestController` 테스트도 이 REST API 방식에 가깝다.
+
+# Model, View, Controller를 내 말로 정리하면
+
+Model은 요청을 처리한 결과 데이터다.
+
+예를 들어 consistency report API에서는 아래 객체가 Model에 해당한다고 볼 수 있다.
+
+```java
+OrderReplayConsistencyReport
+```
+
+이 객체 안에는 전체 주문 수, 일치한 주문 수, 불일치한 주문 수, 주문별 검증 결과가 들어 있다.
+
+View는 응답을 표현하는 방식이다.
+
+HTML 페이지를 응답할 수도 있고, PDF나 Excel 파일을 응답할 수도 있고, JSON을 응답할 수도 있다.
+
+Spring MVC에서는 ViewResolver가 논리적인 view 이름을 실제 view로 바꿔주는 역할을 한다. 예를 들어 `"orders/list"`라는 이름을 `orders/list.html` 같은 템플릿으로 연결할 수 있다.
+
+다만 `@RestController`에서는 보통 ViewResolver를 거쳐 HTML을 렌더링하지 않는다. 대신 `HttpMessageConverter`가 Java 객체를 JSON으로 변환한다.
+
+Controller는 HTTP 요청을 처음 받는 진입점이다.
+
+Controller는 비즈니스 로직을 직접 많이 들고 있으면 안 된다. 요청 parameter를 해석하고, service를 호출하고, service 결과를 응답으로 돌려주는 연결 역할에 집중하는 편이 좋다.
+
+그래서 Controller는 두꺼운 계산기라기보다 얇은 어댑터에 가깝다.
+
+```text
+HTTP 세계
+    -> Controller
+    -> Java/service 세계
+```
+
+# Spring MVC의 중심, DispatcherServlet
+
+Spring MVC에서 가장 중요한 구성 요소는 `DispatcherServlet`이다.
+
+`DispatcherServlet`은 이름 그대로 요청을 알맞은 곳으로 dispatch, 즉 배분하는 Servlet이다.
+
+Spring Boot 애플리케이션에서 클라이언트 요청이 들어오면 대부분의 요청은 먼저 `DispatcherServlet`으로 들어간다. 그리고 `DispatcherServlet`이 "이 URL은 어떤 Controller 메서드가 처리해야 하지?"를 찾아낸다.
+
+단순화하면 다음 흐름이다.
+
+```text
+Client
+    -> Tomcat
+    -> DispatcherServlet
+    -> HandlerMapping
+    -> HandlerAdapter
+    -> Controller
+    -> return value
+    -> HTTP response
+```
+
+`DispatcherServlet`은 `HttpServlet` 계열을 상속받아 Servlet으로 동작한다.
+
+```text
+DispatcherServlet
+    -> FrameworkServlet
+    -> HttpServletBean
+    -> HttpServlet
+```
+
+요청이 들어오면 Servlet의 `service()` 흐름을 타고 내려가다가, 최종적으로 Spring MVC의 핵심 처리 메서드인 `DispatcherServlet.doDispatch()`가 호출된다.
+
+개발자가 보통 이 메서드를 직접 호출할 일은 없다. 하지만 `MockMvc` 테스트를 이해할 때는 중요하다.
+
+`MockMvc`는 실제 서버 포트를 열지 않지만, 내부적으로는 이 Spring MVC 요청 처리 흐름을 태운다. 그래서 Controller mapping, parameter binding, JSON 변환 같은 동작을 실제와 가깝게 검증할 수 있다.
+
+# Spring MVC 요청 처리 순서
+
+Spring MVC의 요청 처리 과정을 조금 더 풀면 다음과 같다.
+
+```text
+1. 요청이 DispatcherServlet에 들어온다.
+2. HandlerMapping이 URL에 맞는 handler를 찾는다.
+3. HandlerAdapter가 해당 handler를 실행할 방법을 찾는다.
+4. HandlerAdapter가 Controller 메서드를 호출한다.
+5. Controller가 ModelAndView 또는 응답 객체를 반환한다.
+6. ViewResolver가 view를 찾거나, HttpMessageConverter가 응답 body를 만든다.
+7. 최종 HTTP 응답이 클라이언트에게 내려간다.
+```
+
+여기서 handler는 보통 Controller 메서드라고 생각하면 된다.
+
+예를 들어 아래 메서드는 하나의 handler가 된다.
+
+```java
+@GetMapping
+public OrderReplayConsistencyReport report(
+        @RequestParam(name = "inconsistentOnly", defaultValue = "false") boolean inconsistentOnly
+) {
+    ...
+}
+```
+
+`HandlerMapping`은 요청 URL과 HTTP method를 보고 이 메서드를 찾아낸다.
+
+`HandlerAdapter`는 이 메서드를 실제로 호출할 수 있도록 parameter를 준비한다. query parameter인 `inconsistentOnly`를 boolean 값으로 바꿔 넣어주는 일도 이 과정에 포함된다.
+
+그 다음 반환된 `OrderReplayConsistencyReport` 객체는 JSON 응답으로 변환된다.
+
+# Spring MVC가 확장 가능한 이유
+
+Spring MVC는 내부 동작의 많은 부분을 인터페이스로 분리해두었다.
+
+대표적인 인터페이스는 다음과 같다.
+
+- `HandlerMapping`: 요청을 처리할 handler를 찾는다.
+- `HandlerAdapter`: 찾은 handler를 실행한다.
+- `ViewResolver`: view 이름을 실제 view로 바꾼다.
+- `View`: 최종 화면을 렌더링한다.
+
+이 구조 덕분에 Spring MVC는 `DispatcherServlet` 자체를 고치지 않고도 동작을 바꿀 수 있다.
+
+개발자는 보통 이 인터페이스를 직접 구현하지 않아도 된다. Spring Boot가 기본 설정을 대부분 자동으로 등록해주기 때문이다.
+
+하지만 큰 그림을 알고 있으면 테스트 코드가 덜 낯설어진다.
+
+특히 `@WebMvcTest`는 바로 이 MVC 계층만 얇게 띄워서 테스트하는 도구다.
+
+즉 이번 글에서 다루는 Controller 테스트는 아래 전체 흐름 중 Controller 주변만 잘라서 보는 테스트다.
+
+```text
+HTTP request
+    -> DispatcherServlet
+    -> HandlerMapping
+    -> HandlerAdapter
+    -> Controller
+    -> JSON response
+```
+
+service, repository, database까지 모두 확인하는 테스트가 아니라, "Spring MVC가 요청을 Controller까지 잘 연결하고, Controller 결과를 응답으로 잘 바꾸는가"를 확인하는 테스트다.
+
 # 테스트 대상 Controller
 
 테스트 대상은 replay consistency report를 조회하는 Controller다.
