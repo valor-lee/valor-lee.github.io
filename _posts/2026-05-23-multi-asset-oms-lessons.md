@@ -1,6 +1,7 @@
 ---
 title: '[프로젝트] 멀티자산 OMS 시뮬레이션 플랫폼을 만들며 배운 것'
 date: 2026-05-23 00:30:00 +09:00
+published: false
 categories: [Project, OMS]
 tags:
   [
