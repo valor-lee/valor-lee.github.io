@@ -17,7 +17,7 @@ future: true
 title: Valor's Tech Blog # the main title
 subtitle: "기록하고 실험하는 개발 노트" # 화면 title 하단에 있는 소제목입니다.
 name: "Valor Lee"
-tagline: "앞으로의 '나와 개발자들'을 위해 기록하는 개발 블로그입니다." # it will display as the sub-title
+tagline: "RAM이 작으니까 SSD에 기록하자" # it will display as the sub-title
 
 description: >- # used by seo meta and the atom feed
   데이터베이스, 시스템, 백엔드, 머신러닝을 공부하며 정리하는 Valor Lee의 기술 블로그입니다.
@@ -36,7 +36,6 @@ masthead_title: "brave, immutable, challenging"
 
 github:
   username: valor-lee # change to your github username
-
 
 social:
   # Change to your full name.
