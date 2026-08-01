@@ -393,8 +393,8 @@ public class DiscoveryService {
 - spring-cloud-commons 라이브러리에서 제공하는 `DiscoveryClient` 객체를 활용하여 Service Discovery에서 가져온 instance 정보들을 가지옵니다.
 
 
-<img src="https://github.com/valor-lee/valor-lee.github.io/assets/109330610/7a98763c-b8d1-4f1c-8e82-c1efc91344c2" width="400px" height="150px" title="Github_Logo"></img>
-<img src="https://github.com/valor-lee/valor-lee.github.io/assets/109330610/b09048bf-c8cd-44c5-9ccf-a2910d74e336" width="400px" height="150px" title="Github_Logo"></img>
+<img src="https://github.com/valor-lee/valor-lee.github.io/assets/109330610/7a98763c-b8d1-4f1c-8e82-c1efc91344c2" width="400px" height="150px" title="Github_Logo" alt="img1"></img>
+<img src="https://github.com/valor-lee/valor-lee.github.io/assets/109330610/b09048bf-c8cd-44c5-9ccf-a2910d74e336" width="400px" height="150px" title="Github_Logo" alt="img2"></img>
 
 - 이제 각 프로젝트를 실행하여 postman으로 테스트해보면 위와 같이 각 instance정보가 잘 조회됨을 확인할 수 있습니다.
 

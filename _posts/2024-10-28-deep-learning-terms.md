@@ -246,7 +246,7 @@ RNN에서 유용합니다.
 ReLU 함수 또는 ReLU의 변형 함수들을 활성화 함수로 사용할 경우에는 성능이 좋지 않습니다.
 
 
-[관련 논문](http://proceedings.mlr.press/v9/glorot10a/glorot10a.pdf)
+[관련 논문](https://proceedings.mlr.press/v9/glorot10a/glorot10a.pdf)
 
 
 ## He 초기화(He initializtion)
@@ -345,7 +345,7 @@ Subclassing API는 밑바닥부터 새로운 수준의 아키텍처를 구현해
 
 email 텍스트 데이터를 기반으로 레이블로 나누는 MLP 개발 과정을 볼 수 있습니다.
 
-[참고]([wikidocs](https://wikidocs.net/49071))
+[참고](https://wikidocs.net/49071)
 
 # 피드 포워드 신경망 언어 모델(Feed Forward Neural Network Language Model, FFNNLM)
 
