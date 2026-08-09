@@ -39,6 +39,16 @@ Device controller가 독립적으로 작업 수행
 Device가 완료 상태를 기록
 ```
 
+# 학습 위치
+
+| 항목 | 내용 |
+| --- | --- |
+| BFS Level | Level 2-D — Device I/O 기반 |
+| 선수 글 | [[Low Latency Trading] CPU Interconnect와 Uncore — Core·Memory·PCIe 연결 경로](/posts/low-latency-cpu-interconnect-uncore/) |
+| 다음 글 | [[Device I/O] Interrupt와 Polling, DMA는 어떻게 연결되는가](/posts/interrupt-polling-dma/) |
+
+선수 글은 hardware transaction이 지나가는 topology를 다루고, 이 글은 software와 device가 MMIO, descriptor와 doorbell로 그 경로를 사용하는 방법에 집중한다.
+
 # 1. CPU와 Device는 서로 다른 실행 주체다
 
 CPU는 application과 OS의 instruction stream을 실행한다.
