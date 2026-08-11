@@ -20,6 +20,8 @@ tags:
 
 초저지연 트레이딩 개발 면접은 용어의 정의에서 끝나지 않는다.
 
+CPU·C++·network 용어가 아직 낯설다면 먼저 [[Low Latency Trading] 면접 기초 해설 — CPU에서 주문 복구까지 처음부터 이해하기](/posts/low-latency-trading-interview-easy-guide/)를 읽는다. 기초 해설판에서 용어의 뜻과 전체 흐름을 익힌 뒤 이 글의 56문항으로 답변 깊이를 높이는 순서다.
+
 면접관은 대개 한 질문을 다음 방향으로 계속 좁힌다.
 
 ```text
